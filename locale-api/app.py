@@ -5,6 +5,7 @@ from datetime import datetime
 
 
 app = Chalice(app_name='locale-api')
+app.debug = True
 
 def create_conn():
     conn = None
@@ -46,14 +47,19 @@ def index():
 
     cur.execute("INSERT INTO drivers ( driver_id, vehicle_model_id) VALUES (%s, %s) ;", (driver_id_data, vehicle_model_id_data, ))
     cur.execute("INSERT INTO riders (user_id) VALUES (%s) ;", (user_id_data, ))
-    cur.execute("INSERT INTO rides (booking_id, package_id, travel_type_id, from_area_id, to_area_id, from_city_id, to_city_id, from_date, to_date, online_booking, booking_created, from_lat, from_long, to_lat, to_long) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ;", (booking_id_data, package_id_data, travel_type_id_data, from_area_id_data, to_area_id_data, from_city_id_data, to_city_id_data, from_date_data, to_date_data, online_booking_data, booking_created_data, from_lat_data, from_long_data, to_lat_data, to_long_data, ))
-    cur.execute("INSERT INTO ride_info (user_id, driver_id, booking_id) VALUES (%s, %s, %s) ;", (user_id_data, driver_id_data, booking_id_data, ))
+    cur.execute("INSERT INTO rides (user_id_fk, driver_id_fk, booking_id, package_id, travel_type_id, from_area_id, to_area_id, from_city_id, to_city_id, from_date, to_date, online_booking, booking_created, from_lat, from_long, to_lat, to_long) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ;", (user_id_data, driver_id_data, booking_id_data, package_id_data, travel_type_id_data, from_area_id_data, to_area_id_data, from_city_id_data, to_city_id_data, from_date_data, to_date_data, online_booking_data, booking_created_data, from_lat_data, from_long_data, to_lat_data, to_long_data, ))
     conn.commit()
     cur.close()
     conn.close()
     
 
-    return req_data
+    return {
+        "message" : "successfully inserted into database with:",
+        "riderid": user_id_data,
+        "driverid": driver_id_data,
+        "bookingid": booking_id_data
+
+    }
 
 
 
