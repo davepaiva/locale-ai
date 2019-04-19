@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 app = Chalice(app_name='locale-api')
-app.debug = True
+app.debug = True  ##allow function error messages, if any to be sent as response.
 
 def create_conn():    #function to try to esatblish a connection the database, return the connection object
     conn = None
