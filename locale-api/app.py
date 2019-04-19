@@ -4,12 +4,8 @@ from decimal import Decimal
 from datetime import datetime
 
 
-<<<<<<< HEAD
 app = Chalice(app_name='locale-api')
 app.debug = True
-=======
-app = Chalice(app_name='locale-api')  # Init chalice app
->>>>>>> 5bbcbe14393594b98f48a7d6eec5830ab4c61034
 
 def create_conn():    #function to try to esatblish a connection the database, return the connection object
     conn = None
